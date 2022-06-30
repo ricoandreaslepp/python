@@ -1,2 +1,3 @@
 # automation
-Projects about automating different things, mostly games.
+
+Python automation projects
