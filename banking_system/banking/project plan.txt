@@ -1,0 +1,35 @@
+# working bank system
+
+- backbone
+    functions for navigating
+    security checks
+
+- bank account actions
+    deposit
+    withdraw
+    display
+    
+- different accounts
+    sha256 encryption, a new .txt file for each user
+
+    change balance and add to history after exiting
+
+    ID_number file layout
+    ---------------
+    1 usr - sha256
+    2 balance
+    3-> history
+    --------------
+    users.txt
+    --------------
+    user_names - sha256
+
+    
+# Improvements
+- salts for hashes
+- better string concatenation
+
+- networking to connect
+- a flat-file database
+- tkinter interface
+
