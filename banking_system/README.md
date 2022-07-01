@@ -1,6 +1,6 @@
 # banking_system
 
-A working text-based bank built in Python!
+A CLI bank built in python, currently very broken.
 
 * Creates and stores accounts and their data:
 1) username
