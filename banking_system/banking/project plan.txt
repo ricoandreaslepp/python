@@ -1,5 +1,7 @@
 # working bank system
 
+NEEDS A LOT OF IMPORVEMENT
+
 - backbone
     functions for navigating
     security checks
@@ -24,12 +26,16 @@
     --------------
     user_names - sha256
 
-    
+- bugs
+    after an action if you quit, then all is cancelled
+    (login, deposit, CTRL+D, login, display)
+
 # Improvements
 - salts for hashes
-- better string concatenation
 
 - networking to connect
-- a flat-file database
+    multithreaded
+
+- adding colors
 - tkinter interface
 
