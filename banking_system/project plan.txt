@@ -12,15 +12,16 @@ NEEDS A LOT OF IMPORVEMENT
     display
     
 - different accounts
-    sha256 encryption, a new .txt file for each user
-
-    change balance and add to history after exiting
+    * sha256 encryption, a new .txt file for each user
+    * change balance and add to history after exiting
+    * files should only be readable by server.py
 
     ID_number file layout
     ---------------
-    1 usr - sha256
-    2 balance
-    3-> history
+    1 logged in (0/1)
+    2 usr - sha256 - salt
+    3 balance
+    4 history
     --------------
     users.txt
     --------------
@@ -32,10 +33,6 @@ NEEDS A LOT OF IMPORVEMENT
 
 # Improvements
 - salts for hashes
-
 - networking to connect
     multithreaded
-
-- adding colors
-- tkinter interface
 
