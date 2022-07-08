@@ -18,12 +18,12 @@ class Client:
             if recv_data in ["bye", ""]:
                 break
 
-            Log.info(f"[data][{addr[0]}:{addr[1]} -> server] Received [{recv_data}]")
+            Log.data_transfer([addr[0], "server", recv_data])
 
             # do something
             sent_data = recv_data[::-1]
             self.conn.send(sent_data.encode())
-            Log.info(f"[data][server -> {addr[0]}:{addr[1]}] Sent [{sent_data}]")
+            Log.data_transfer(["server", addr[0], sent_data])
 
         Log.info(f"Client {addr} closed connection")
         self.conn.send(b"\n\nServer closing connection...")

@@ -10,7 +10,15 @@ class Server:
     client_connections = []
 
     def __init__(self):
+        self.set_ip()
         self.run_server()
+
+    # try to get LAN ip from router
+    def set_ip(self):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('10.254.254.254', 1))
+        self.IP = s.getsockname()[0]
+        s.close()
 
     def run_server(self):
         try:
@@ -25,7 +33,7 @@ class Server:
     def server_loop(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((HOST, PORT))
-        Log.info(f"Server bound to {HOST} on port {PORT}...")
+        Log.info(f"Server with IP {self.IP} on port {PORT}...")
 
         self.server.listen(1000)
         Log.info(f"Server listening for connections...")
