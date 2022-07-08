@@ -17,8 +17,8 @@ logging.addLevelName(logging.DATA, "DATA_TRANSFER")
 # basically a rip off of other builtin methods (.info, .warning etc)
 def data_transfer(self, m : "[from, to, msg]", *args, **kws):
 	""" example
-	Log.data_transfer(["125.123.141.52:1235", "server", "hello, world!"]) =>
-		[2022-07-08 15:59:46,320][data][125.123.141.52:1235 -> server] data: "hello, world!"
+	Log.data_transfer(["127.0.0.1:1235", "server", "hello, world!"]) =>
+		[2022-07-08 15:59:46,320][data][127.0.0.1:1235 -> server] data: "hello, world!"
 	"""
 
 	if self.isEnabledFor(logging.DATA):
