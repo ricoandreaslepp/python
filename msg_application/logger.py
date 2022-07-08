@@ -12,6 +12,8 @@ class BetterLogging(logging.Logger):
 			self._log(self.DATA, message, args, **kws)
 
 
+# should probably go under Servers classes __init__
+
 # basic config
 log = BetterLogging("test")
 log.disabled = config.LOGGING_DISABLED
