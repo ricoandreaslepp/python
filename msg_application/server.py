@@ -2,7 +2,7 @@ from config import HOST, PORT
 import socket
 from _thread import *
 from server_side_client import Client
-from logger import Log
+from logger import log
 # import threading # for thread locking
 
 class Server:
@@ -33,13 +33,13 @@ class Server:
     def server_loop(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.bind((HOST, PORT))
-        Log.info(f"Server with IP {self.IP} on port {PORT}...")
+        log.info(f"Server with IP {self.IP} on port {PORT}...")
 
         self.server.listen(1000)
-        Log.info(f"Server listening for connections...")
+        log.info(f"Server listening for connections...")
         while True:
             conn, addr = self.server.accept()
-            Log.info(f"Got connection from {addr}.")
+            log.info(f"Got connection from {addr}.")
 
             start_new_thread(Client, (conn, addr,))
 
