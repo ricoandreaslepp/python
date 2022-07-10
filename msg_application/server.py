@@ -3,41 +3,79 @@
 
 from config import HOST, PORT
 import socket
-from _thread import *
+from threading import Thread
 from logger import log
 
-class Client(object):
+client_connections = []
 
-    def __init__(self, conn, addr):
+
+class Client(Thread):
+
+    def __init__(self, conn, addr, name):
+        Thread.__init__(self)
         self.conn = conn
-        self.client_loop(addr)
+        self.addr = addr
+        self.name = name
 
-    def client_loop(self, addr):
-        self.conn.send("Successfully connected to server...".encode())
+    def check_messages(self):
+        pass
 
+    def send_message(self):
+        pass
+
+    # just for testing
+    def recv_message(self):
+        self.conn.recv(1024).decode()
+
+    # Thread method
+    def run(self):
+        self.conn.send("Successfully connected to server...\n".encode())
+
+        # needs an error check
         while True:
-            recv_data = self.conn.recv(1024).decode().strip()
-            
-            # do we care for how the connection was closed?
-            if recv_data in ["bye", ""]:
+            self.conn.send("Do what: ".encode())
+            action = self.conn.recv(1024).decode().strip()
+
+            if action == "recv":
+                self.recv_message()
                 break
 
-            log.data_transfer([addr[0], "server", recv_data])
+            # else send data
+            self.conn.send("Send \"who, what\": ".encode())
+            # ignore exceptions for now
+            data = self.conn.recv(1024).decode().strip()
+
+            # do we care for how the connection was closed?
+            if data in ["bye", ""]:
+                break
+
+            send_to, data = data.split(", ")
+
+            # log names for localhost testing
+            log.data_transfer([self.name, "server", send_to])
+            log.data_transfer([self.name, "server", data])
 
             # do something
-            sent_data = recv_data[::-1]
-            self.conn.send(sent_data.encode())
-            log.data_transfer(["server", addr[0], sent_data])
+            for client in client_connections:
+                if client.name == send_to:
+                    self.conn.send("Found user\n".encode())
 
-        log.info(f"Client {addr} closed connection")
-        self.conn.send(b"\n\nServer closing connection...")
+                    # found user is listening
+                    client.conn.send(f"{data}\n".encode())
+                    log.data_transfer(["server", client.name, data])
+
+        log.info(f"{self.name} {self.addr} closed connection")
+        self.conn.send("\n\nServer closing connection...".encode())
         self.conn.close()
 
-class Server(object):
 
-    client_connections = []
+class Server(object):
+    global client_connections
 
     def __init__(self):
+        self.server = None
+        self.IP = None
+
         self.set_ip()
         self.run_server()
 
@@ -56,7 +94,11 @@ class Server(object):
         except KeyboardInterrupt:
             pass
 
-        self.endall()
+        self.end_all()
+
+    def show_all_connections(self):
+        for c in client_connections:
+            print(c.name)
 
     def server_loop(self):
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -67,12 +109,20 @@ class Server(object):
         log.info(f"Server listening for connections...")
         while True:
             conn, addr = self.server.accept()
-            log.info(f"Got connection from {addr}.")
+            conn.send("login: ".encode())
+            name = conn.recv(1024).decode().strip()
 
-            start_new_thread(Client, (conn, addr,))
+            log.info(f"{name} connected from {addr}.")
 
-    def endall(self):
+            new_client = Client(conn, addr, name)
+            new_client.start()
+
+            client_connections.append(new_client)
+            self.show_all_connections()
+
+    def end_all(self):
         self.server.close()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     s = Server()

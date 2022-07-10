@@ -1,12 +1,13 @@
 import logging
 import config
 
+
 # add custom methods
 class BetterLogging(logging.Logger):
 
 	DATA = 50
 
-	def data_transfer(self, m : "[from, to, msg]", *args, **kws):
+	def data_transfer(self, m: "[from, to, msg]", *args, **kws):
 		if self.isEnabledFor(self.DATA):
 			message = f"[data][{m[0]} -> {m[1]}] data: \"{m[2]}\""
 			self._log(self.DATA, message, args, **kws)

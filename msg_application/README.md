@@ -3,6 +3,5 @@
 Multithreaded messaging application without any security whatsoever
 
 # To-Do
-    1) Threading is partial
-    2) Only server-client communication
-    3) Logging can be improved
+    1) Doesn't check if user is online etc
+    2) Check for connection closing
