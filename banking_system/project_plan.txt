@@ -1,4 +1,4 @@
-# working bank system
+# working bank system(ish)
 
 NEEDS A LOT OF IMPORVEMENT
 
@@ -33,6 +33,4 @@ NEEDS A LOT OF IMPORVEMENT
 
 # Improvements
 - salts for hashes
-- networking to connect
-    multithreaded
 

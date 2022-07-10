@@ -1,11 +1,11 @@
 # import uuid; uuid = str(uuid.uuid4()) # for future use
-# import threading # for thread locking
 
 from config import HOST, PORT
 import socket
 from threading import Thread
 from logger import log
 
+# don't know if this should be global
 client_connections = []
 
 
