@@ -37,13 +37,9 @@ class Background(object):
 
             d.color('gray', 'green')
             d.begin_fill()
-            d.fd(200)
-            d.lt(90)
-            d.fd(200)
-            d.lt(90)
-            d.fd(200)
-            d.lt(90)
-            d.fd(200)
+            for _ in range(4):
+                d.fd(200)
+                d.lt(90)
             d.end_fill()
 
 
