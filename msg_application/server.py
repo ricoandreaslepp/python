@@ -81,10 +81,10 @@ class Server(object):
 
     # try to get LAN ip from router
     def set_ip(self):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(('10.254.254.254', 1))
-        self.IP = s.getsockname()[0]
-        s.close()
+        _s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        _s.connect(('10.254.254.254', 1))
+        self.IP = _s.getsockname()[0]
+        _s.close()
 
     def run_server(self):
         try:
@@ -125,4 +125,4 @@ class Server(object):
 
 
 if __name__ == '__main__':
-    s = Server()
+    server = Server()
